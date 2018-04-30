@@ -1,2 +1,2 @@
-include ':todo'
+include ':stockexchange'
 // include ':todo', ':libs:couchbase-lite-android:android:CouchbaseLite' // NOTE: For submodule

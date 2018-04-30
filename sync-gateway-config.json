@@ -1,0 +1,28 @@
+{
+  "log": ["HTTP+"],
+  "adminInterface": "127.0.0.1:4985",
+  "interface": "0.0.0.0:4984",
+  "databases": {
+    "db": {
+      "bucket": "cbse",
+      "username": "Administrator",
+      "password": "password",
+      "server": "http://localhost:8091",
+      "enable_shared_bucket_access": true,
+      "import_docs": "continuous",
+      "import_filter": `
+        function(doc) {
+          if (doc.sector) {
+            return true
+          }
+          return false
+        }
+      `,
+      "users": {
+        "matt": {"password": "password", "admin_channels": ["*"]}
+      }
+    }
+  },
+  "allow_conflicts": false,
+  "revs_limit": 1
+}

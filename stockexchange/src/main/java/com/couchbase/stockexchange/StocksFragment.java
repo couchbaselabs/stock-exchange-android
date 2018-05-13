@@ -2,8 +2,12 @@ package com.couchbase.stockexchange;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.Html;
+import android.text.InputType;
+import android.text.style.TextAppearanceSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,17 +71,26 @@ public class StocksFragment extends Fragment {
                                 .append(Character.toTitleCase(key.charAt(0)))
                                 .append(key.substring(1))
                                 .toString().replace("_", " ");
-                        TextView textView = new TextView(getContext());
-                        textView.setText(Html.fromHtml("<b>" + key + "</b>: " + value));
-                        textView.setTextSize(25.0f);
+                        TextInputLayout textLayout = new TextInputLayout(getContext());
+                        TextInputEditText textView = new TextInputEditText(getContext());
                         if (prevText != null) {
                             RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
                             p.addRule(RelativeLayout.BELOW, prevText);
-                            textView.setLayoutParams(p);
+                            textLayout.setLayoutParams(p);
                         }
                         prevText = View.generateViewId();
-                        textView.setId(prevText);
-                        customView.addView(textView);
+                        textLayout.setId(prevText);
+                        textLayout.setHint(key);
+                        textLayout.setHintTextAppearance(R.style.TextAppearance_AppCompat_Large);
+                        textView.setText(value);
+                        textView.setTextAppearance(R.style.TextAppearance_AppCompat_Large);
+                        textView.setInputType(InputType.TYPE_NULL);
+                        textView.setFocusable(false);
+                        textView.setClickable(false);
+                        textView.setTextIsSelectable(false);
+                        textView.setBackgroundResource(android.R.color.transparent);
+                        textLayout.addView(textView);
+                        customView.addView(textLayout);
                     }
                 } else {
                     TextView textView = new TextView(getContext());
